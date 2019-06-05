@@ -11,8 +11,7 @@
     {% if page.in_menu %}
     <li id="primary-menu-{{ page.html_id }}"
         class="{% if page.is_current_or_ascendant %}active{% endif %}{% if forloop.last %} last{% endif %} nav-item">
-        <a class="nav-link"
-            href="{% url "home" %}">{% trans "Home" %}</a>href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+        <a class="nav-link" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
     </li>
     {% endif %}
     {% endfor %}
