@@ -339,3 +339,5 @@ else:
 ####################
 # CUSTOM SETTINGS #
 ####################
+FORMS_USE_HTML5 = True
+

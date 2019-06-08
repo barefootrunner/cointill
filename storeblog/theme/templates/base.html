@@ -30,7 +30,7 @@
 
 <!-- Custom styles for this template -->
 <link href="{% static "css/clean-blog.min.css" %}" rel="stylesheet">
-
+<link href="{% static "css/custom.css" %}" rel="stylesheet">
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/bootstrap-rtl.css" %}">
 {% endif %}
@@ -78,7 +78,16 @@
         </div>
     </nav>
 
-{% block main %}{% endblock %}
+{% block pageheader %}{% endblock %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+</div>
+<hr>
 
     <!-- Footer -->
     <footer>
@@ -113,8 +122,7 @@
                     </ul>
                     <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
                 </div>
-            </div>
-        </div>
+            
     </footer>
 
 
