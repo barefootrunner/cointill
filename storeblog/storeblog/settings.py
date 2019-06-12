@@ -340,4 +340,5 @@ else:
 # CUSTOM SETTINGS #
 ####################
 FORMS_USE_HTML5 = True
+COMMENTS_USE_RATINGS = False
 
