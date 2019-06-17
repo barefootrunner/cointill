@@ -71,8 +71,61 @@
 {% endif %}
 {% endif %}
 
+{% block blog_months %}
+{% blog_months as months %}
+{% if months %}
+{% for month in months %}
+{% ifchanged month.date.year %}
+{% if not forloop.first %}</ul>{% endif %}
+<div class="row blog-filters">
+    <div class="col-sm-6">
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Archives
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/">All</a>
+                {% endifchanged %}
+                <a class="dropdown-item"
+                    href="{% url "blog_post_list_month" year=month.date.year month=month.date.month %}">{{ month.date|date:"F" }}
+                    {{ month.date.year }} ({{ month.post_count }})</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+    {% endblock %}
+
+    {% block blog_categories %}
+    {% blog_categories as categories %}
+    {% if categories %}
+
+    <div class="col-sm-6">
+
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Category
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/">All</a>
+                {% for category in categories %}
+                <a href="{% url "blog_post_list_category" category.slug %}">
+                    {{ category }} ({{ category.post_count }})
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+
+
 {% for blog_post in blog_posts.object_list %}
-<!-- Main Content -->
 
 <div class="post-preview">
     {% editable blog_post.title %}
@@ -85,7 +138,8 @@
     {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
     {% block blog_post_list_post_featured_image %}
     <a href="{{ blog_post.get_absolute_url }}">
-        <img class="img-thumbnail" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 800 450 %}"{% if blog_post.retina %}data-at2x="{{ MEDIA_URL }}{{ blog_post.retina }}"{% endif %}>
+        <img class="img-thumbnail" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 800 450 %}"
+            {% if blog_post.retina %}data-at2x="{{ MEDIA_URL }}{{ blog_post.retina }}" {% endif %}>
     </a>
     {% endblock %}
     {% endif %}
@@ -136,7 +190,7 @@
     {% endblock %}
 
 </div>
-</hr>
+<hr>
 
 {% endfor %}
 
